@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Success Mortgage UAS Fani 10922003')
+@section('title', 'Success Mortgage UAS Fani Ramadhanty 10922003')
 @section('content')
     <x-nav-tedja />
     <div class="flex justify-center gap-[50px] mt-[202px] mb-[70px]">
