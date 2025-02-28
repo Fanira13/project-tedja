@@ -14,7 +14,7 @@ class DashboardController extends Controller
     protected $mortgageService;
     protected $paymentService;
 
-    public function _construct(MortgageService $mortgageService, PaymentService $paymentService)
+    public function __construct(MortgageService $mortgageService, PaymentService $paymentService) // Perbaikan: __construct
     {
         $this->mortgageService = $mortgageService;
         $this->paymentService = $paymentService;
@@ -30,12 +30,11 @@ class DashboardController extends Controller
 
     public function details(MortgageRequest $mortgageRequest)
     {
-
         $details = $this->mortgageService->getMortgageDetails($mortgageRequest);
         return view('customer.mortgages.details', $details);
     }
 
-    public function  installment_details(Installment $installment)
+    public function installment_details(Installment $installment)
     {
         $installmentDetails = $this->mortgageService->getInstallmentDetails($installment);
         return view('customer.installment.index', compact('installmentDetails'));
@@ -55,17 +54,18 @@ class DashboardController extends Controller
             $snapToken = $this->paymentService->createPayment($mortgageRequest);
 
             return response()->json(['snap_token' => $snapToken], 200);
-          } catch (\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['error' => 'Payment failed: ' . $e->getMessage()], 500);
         }
     }
 
-    public function paymentMidtransNotification(Request $request){
+    public function paymentMidtransNotification(Request $request)
+    {
         try {
             $this->paymentService->processNotification();
 
             return response()->json(['status' => 'success'], 200);
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return response()->json(['error' => 'Failed to process notification: ' . $e->getMessage()], 500);
         }
     }

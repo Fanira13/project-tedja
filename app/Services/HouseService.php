@@ -10,7 +10,7 @@ class HouseService
     public function getCategoriesAndCities()
     {
         return [
-            'catrgories' => Category::latest()->get(),
+            'categories' => Category::latest()->get(),
             'cities' => City::latest()->get(),
         ];
     }

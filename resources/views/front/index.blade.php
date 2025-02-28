@@ -1,43 +1,7 @@
-<!doctype html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="{{ asset('css/output.css') }}" rel="stylesheet">
-
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-    </head>
-    <body>
-        <nav class="relative w-full flex items-center justify-center px-[75px]">
-            <div class="fixed top-0 flex items-center justify-between w-full max-w-[1130px] rounded-3xl p-4 bg-white mt-[30px] z-30">
-                <a href="index.html" class="flex shrink-0">
-                    <img src="{{ asset ('assets/images/logos/logo-black.svg')}}" alt="logo">
-                </a>
-                <ul class="flex items-center gap-[30px]">
-                    <li class="group active">
-                        <a href="index.html" class="hover:font-bold group-[.active]:font-bold transition-all duration-300">Home</a>
-                    </li>
-                    <li class="group">
-                        <a href="category.html" class="hover:font-bold group-[.active]:font-bold transition-all duration-300">Browse</a>
-                    </li>
-                    <li class="group">
-                        <a href="#" class="hover:font-bold group-[.active]:font-bold transition-all duration-300">Rewards</a>
-                    </li>
-                    <li class="group">
-                        <a href="#" class="hover:font-bold group-[.active]:font-bold transition-all duration-300">Stories</a>
-                    </li>
-                </ul>
-                <div class="flex items-center gap-3">
-                    <a href="signin.html" class="group rounded-full border border-tedja-black py-[14px] px-5 hover:bg-tedja-black flex items-center transition-all duration-300">
-                        <span class="font-semibold group-hover:text-white transition-all duration-300">Sign In</span>
-                    </a>
-                    <a href="signup.html" class="group rounded-full border py-[14px] px-5 flex items-center bg-tedja-green">
-                        <span class="font-semibold">Sign Up</span>
-                    </a>
-                </div>
-            </div>
-        </nav>
+@extends('layouts.master')
+@section('title', 'Home Page UAS Fani 10922003')
+@section('content')
+        <x-nav-tedja/>
         <header class="relative flex flex-col w-full h-[712px]">
             <div class="absolute w-full h-[650px] overflow-hidden">
                 <img src="{{ asset ('assets/images/backgrounds/hero-image.webp')}}" class="w-full h-full object-cover" alt="hero image">
@@ -51,15 +15,15 @@
                 <h1 class="font-extrabold text-[46px] leading-[60px] text-center text-white">You Deserve Big House</h1>
                 <p class="text-lg leading-8 text-center text-white">Dibangun oleh para professional sehingga memberikan<br>kecantikan sejati dan juga kehangatan bersama keluarga.</p>
             </div>
-            <form action="search-result.html" class="relative flex w-full max-w-[940px] rounded-3xl p-5 gap-5 bg-white border border-tedja-border shadow-[0px_8px_30px_0px_#06092208] mx-auto mt-auto">
+            <form action="{{route('front.search')}}" class="relative flex w-full max-w-[940px] rounded-3xl p-5 gap-5 bg-white border border-tedja-border shadow-[0px_8px_30px_0px_#06092208] mx-auto mt-auto">
                 <div class="flex flex-col w-full max-w-[241px] gap-2 h-[84px]">
                     <p class="font-semibold">Location</p>
                     <label class="relative">
-                        <select name="" id="" class="appearance-none outline-none w-full rounded-full ring-1 ring-tedja-black py-[14px] px-5 font-semibold invalid:font-normal focus:ring-2 focus:ring-tedja-blue transition-all duration-300" required>
+                        <select name= "city" id="" class="appearance-none outline-none w-full rounded-full ring-1 ring-tedja-black py-[14px] px-5 font-semibold invalid:font-normal focus:ring-2 focus:ring-tedja-blue transition-all duration-300" required>
                             <option value="" hidden disabled selected>Choose your location</option>
-                            <option value="1">Jakarta Pusat</option>
-                            <option value="1">Bandung</option>
-                            <option value="1">Bekasi</option>
+                            @foreach($cities as $city)
+                            <option value={{$city->id}}>{{$city->name}}</option>
+                          @endforeach
                         </select>
                         <img src="{{ asset ('assets/images/icons/arrow-down.svg')}}" class="absolute size-5 transform -translate-y-1/2 top-1/2 right-5" alt="icon">
                     </label>
@@ -67,10 +31,11 @@
                 <div class="flex flex-col w-full max-w-[227px] gap-2 h-[84px]">
                     <p class="font-semibold">Category</p>
                     <label class="relative">
-                        <select name="" id="" class="appearance-none outline-none w-full rounded-full ring-1 ring-tedja-black py-[14px] px-5 font-semibold invalid:font-normal focus:ring-2 focus:ring-tedja-blue transition-all duration-300" required>
+                        <select name="category" id="" class="appearance-none outline-none w-full rounded-full ring-1 ring-tedja-black py-[14px] px-5 font-semibold invalid:font-normal focus:ring-2 focus:ring-tedja-blue transition-all duration-300" required>
                             <option value="" hidden disabled selected>Select Category</option>
-                            <option value="1">Man Made</option>
-                            <option value="1">Beaches</option>
+                             @foreach($categories as $category)
+                            <option value={{$category->id}}>{{$category->name}}</option>
+                          @endforeach
                         </select>
                         <img src="{{ asset ('assets/images/icons/arrow-down.svg')}}" class="absolute size-5 transform -translate-y-1/2 top-1/2 right-5" alt="icon">
                     </label>
@@ -78,7 +43,7 @@
                 <div class="flex flex-col w-full max-w-[232px] gap-2 h-[84px]">
                     <p class="font-semibold">Property</p>
                     <label class="relative">
-                        <select name="" id="" class="appearance-none outline-none w-full rounded-full ring-1 ring-tedja-black py-[14px] px-5 font-semibold invalid:font-normal focus:ring-2 focus:ring-tedja-blue transition-all duration-300" required>
+                        <select name="property_type" id="" class="appearance-none outline-none w-full rounded-full ring-1 ring-tedja-black py-[14px] px-5 font-semibold invalid:font-normal focus:ring-2 focus:ring-tedja-blue transition-all duration-300" required>
                             <option value="" hidden disabled selected>Select property type</option>
                             <option value="1">House</option>
                         </select>
@@ -104,118 +69,31 @@
             </div>
             <div class="swiper w-full overflow-x-hidden">
                 <div class="swiper-wrapper">
+
+                    @forelse($categories as $category)
                     <div class="swiper-slide !w-fit py-0.5 first-of-type:pl-[calc(((100%-1280px)/2)+75px)] last-of-type:pr-[calc(((100%-1280px)/2)+75px)]">
-                        <a href="category.html" class="card">
+                        <a href="{{ route('front.category',$category->slug )}}" class="card">
                             <div class="flex flex-col w-[240px] shrink-0 rounded-[30px] ring-1 ring-tedja-border bg-white p-[10px] gap-4 hover:ring-2 hover:ring-tedja-blue transition-all duration-300">
                                 <div class="flex w-full h-[240px] overflow-hidden rounded-[30px]">
-                                    <img src="{{ asset ('assets/images/thumbnails/thumbnails-1.png')}}" class="w-full h-full object-cover" alt="thumbnails">
+                                    <img src="{{ Storage::url($category->photo)}}" class="w-full h-full object-cover" alt="thumbnails">
                                 </div>
                                 <div class="flex flex-col gap-2 pb-[10px] pl-[10px]">
-                                    <h3 class="font-bold text-lg">Beaches</h3>
+                                    <h3 class="font-bold text-lg">
+                                    {{ $category->name}}
+                                    </h3>
                                     <div class="flex items-center gap-[6px]">
                                         <img src="{{ asset ('assets/images/icons/house-2.svg')}}" class="size-5 flex shrink-0" alt="icon">
-                                        <p class="font-semibold text-sm">183,498 Houses</p>
+                                        <p class="font-semibold text-sm">{{ $category->houses->count()}} Houses</p>
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>
-                    <div class="swiper-slide !w-fit py-0.5 first-of-type:pl-[calc(((100%-1280px)/2)+75px)] last-of-type:pr-[calc(((100%-1280px)/2)+75px)]">
-                        <a href="category.html" class="card">
-                            <div class="flex flex-col w-[240px] shrink-0 rounded-[30px] ring-1 ring-tedja-border bg-white p-[10px] gap-4 hover:ring-2 hover:ring-tedja-blue transition-all duration-300">
-                                <div class="flex w-full h-[240px] overflow-hidden rounded-[30px]">
-                                    <img src="{{ asset ('assets/images/thumbnails/thumbnails-2.png')}}" class="w-full h-full object-cover" alt="thumbnails">
-                                </div>
-                                <div class="flex flex-col gap-2 pb-[10px] pl-[10px]">
-                                    <h3 class="font-bold text-lg">Beaches</h3>
-                                    <div class="flex items-center gap-[6px]">
-                                        <img src="{{ asset ('assets/images/icons/house-2.svg')}}" class="size-5 flex shrink-0" alt="icon">
-                                        <p class="font-semibold text-sm">183,498 Houses</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="swiper-slide !w-fit py-0.5 first-of-type:pl-[calc(((100%-1280px)/2)+75px)] last-of-type:pr-[calc(((100%-1280px)/2)+75px)]">
-                        <a href="category.html" class="card">
-                            <div class="flex flex-col w-[240px] shrink-0 rounded-[30px] ring-1 ring-tedja-border bg-white p-[10px] gap-4 hover:ring-2 hover:ring-tedja-blue transition-all duration-300">
-                                <div class="flex w-full h-[240px] overflow-hidden rounded-[30px]">
-                                    <img src="{{ asset ('assets/images/thumbnails/thumbnails-3.png')}}" class="w-full h-full object-cover" alt="thumbnails">
-                                </div>
-                                <div class="flex flex-col gap-2 pb-[10px] pl-[10px]">
-                                    <h3 class="font-bold text-lg">Beaches</h3>
-                                    <div class="flex items-center gap-[6px]">
-                                        <img src="{{ asset ('assets/images/icons/house-2.svg')}}" class="size-5 flex shrink-0" alt="icon">
-                                        <p class="font-semibold text-sm">183,498 Houses</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="swiper-slide !w-fit py-0.5 first-of-type:pl-[calc(((100%-1280px)/2)+75px)] last-of-type:pr-[calc(((100%-1280px)/2)+75px)]">
-                        <a href="category.html" class="card">
-                            <div class="flex flex-col w-[240px] shrink-0 rounded-[30px] ring-1 ring-tedja-border bg-white p-[10px] gap-4 hover:ring-2 hover:ring-tedja-blue transition-all duration-300">
-                                <div class="flex w-full h-[240px] overflow-hidden rounded-[30px]">
-                                    <img src="{{ asset ('assets/images/thumbnails/thumbnails-4.png')}}" class="w-full h-full object-cover" alt="thumbnails">
-                                </div>
-                                <div class="flex flex-col gap-2 pb-[10px] pl-[10px]">
-                                    <h3 class="font-bold text-lg">Beaches</h3>
-                                    <div class="flex items-center gap-[6px]">
-                                        <img src="{{ asset ('assets/images/icons/house-2.svg')}}" class="size-5 flex shrink-0" alt="icon">
-                                        <p class="font-semibold text-sm">183,498 Houses</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="swiper-slide !w-fit py-0.5 first-of-type:pl-[calc(((100%-1280px)/2)+75px)] last-of-type:pr-[calc(((100%-1280px)/2)+75px)]">
-                        <a href="category.html" class="card">
-                            <div class="flex flex-col w-[240px] shrink-0 rounded-[30px] ring-1 ring-tedja-border bg-white p-[10px] gap-4 hover:ring-2 hover:ring-tedja-blue transition-all duration-300">
-                                <div class="flex w-full h-[240px] overflow-hidden rounded-[30px]">
-                                    <img src="{{ asset ('assets/images/thumbnails/thumbnails-2.png')}}" class="w-full h-full object-cover" alt="thumbnails">
-                                </div>
-                                <div class="flex flex-col gap-2 pb-[10px] pl-[10px]">
-                                    <h3 class="font-bold text-lg">Beaches</h3>
-                                    <div class="flex items-center gap-[6px]">
-                                        <img src="{{ asset ('assets/images/icons/house-2.svg')}}" class="size-5 flex shrink-0" alt="icon">
-                                        <p class="font-semibold text-sm">183,498 Houses</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="swiper-slide !w-fit py-0.5 first-of-type:pl-[calc(((100%-1280px)/2)+75px)] last-of-type:pr-[calc(((100%-1280px)/2)+75px)]">
-                        <a href="category.html" class="card">
-                            <div class="flex flex-col w-[240px] shrink-0 rounded-[30px] ring-1 ring-tedja-border bg-white p-[10px] gap-4 hover:ring-2 hover:ring-tedja-blue transition-all duration-300">
-                                <div class="flex w-full h-[240px] overflow-hidden rounded-[30px]">
-                                    <img src="{{ asset ('assets/images/thumbnails/thumbnails-4.png')}}" class="w-full h-full object-cover" alt="thumbnails">
-                                </div>
-                                <div class="flex flex-col gap-2 pb-[10px] pl-[10px]">
-                                    <h3 class="font-bold text-lg">Beaches</h3>
-                                    <div class="flex items-center gap-[6px]">
-                                        <img src="{{ asset ('assets/images/icons/house-2.svg')}}" class="size-5 flex shrink-0" alt="icon">
-                                        <p class="font-semibold text-sm">183,498 Houses</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="swiper-slide !w-fit py-0.5 first-of-type:pl-[calc(((100%-1280px)/2)+75px)] last-of-type:pr-[calc(((100%-1280px)/2)+75px)]">
-                        <a href="category.html" class="card">
-                            <div class="flex flex-col w-[240px] shrink-0 rounded-[30px] ring-1 ring-tedja-border bg-white p-[10px] gap-4 hover:ring-2 hover:ring-tedja-blue transition-all duration-300">
-                                <div class="flex w-full h-[240px] overflow-hidden rounded-[30px]">
-                                    <img src="{{ asset ('assets/images/thumbnails/thumbnails-3.png')}}" class="w-full h-full object-cover" alt="thumbnails">
-                                </div>
-                                <div class="flex flex-col gap-2 pb-[10px] pl-[10px]">
-                                    <h3 class="font-bold text-lg">Beaches</h3>
-                                    <div class="flex items-center gap-[6px]">
-                                        <img src="{{ asset ('assets/images/icons/house-2.svg')}}" class="size-5 flex shrink-0" alt="icon">
-                                        <p class="font-semibold text-sm">183,498 Houses</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                    @empty
+                    belum ada data 
+                    @endforelse
+    
+
                 </div>
             </div>
         </section>
@@ -1029,8 +907,11 @@
                 </div>
             </div>
         </section>
-
+@endsection
+@push('after-styles')
+<link rel="stylesheet" href="https://cdn.jsdeliver.net/npm/swiper@11/swiper-bundle.min.css"/>
+@endpush
+@push('after-scripts')
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src="{{asset('js/home.js')}}"></script>
-    </body>
-</html>
+ @endpush
